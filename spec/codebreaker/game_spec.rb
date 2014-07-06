@@ -33,12 +33,13 @@ module Codebreaker
       end
 
       {
-        [1, 4, 5, 6] => '+-',
-        [2, 3, 5, 1] => '---',
-        [4, 2, 6, 1] => '---'
+        [1, 2, 3, 4] => '++++',
+        [1, 3, 2, 4] => '++--',
+        [1, 1, 3, 4] => '++--'
+        # [5, 6, 5, 6] => ''
       }.each do |arg, result|
         it "correctly display numbers for #{arg}" do
-            stubbed_secret_code = [1, 4, 5, 6]
+            stubbed_secret_code = [1, 2, 3, 4]
             game.start
             game.instance_variable_set(:@secret_code, stubbed_secret_code)
             expect(output).to receive(:puts).with(result)
