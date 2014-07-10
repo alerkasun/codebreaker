@@ -14,53 +14,33 @@ module Codebreaker
     end
 
     def guess(code)
-      # plus = ""
-      # minus = ""
-      # ind = []
-
-      # code.each_with_index do |i, v|
-      #   if @secret_code[i] == code[i]
-      #     plus += "+"
-      #     ind << i
-      #   end
-      # end
-
-      # i = 0
-
-      # while i < @secret_code.length
-      #   if code[i] != @secret_code[i]
-      #     i = 0
-      #     while i < code.length
-      #       if !ind.include?(i) && code[i] == @secret_code[i]
-      #         minus += "-"
-      #         ind << i
-      #       end
-      #       i += 1
-      #     end
-      #   end
-      #   i += 1
-      # end
-      # result = plus + minus
-      # @output.puts(result)
-
-
       plus = ""
       minus = ""
       no = ""
 
-code.each_with_index do |i, v|
-  if @secret_code[i] == code[i]
-    plus += "+"
-  elsif @secret_code.include? code[i]
-    minus += "-"
-  end
-end
+      code.each_with_index do |v, i|
+        if @secret_code[i] == code[i]
+          plus += "+"
+        elsif @secret_code.include? code[i]
+          minus += "-"
+        end
+      end
 
-      result = plus + minus
-      @output.puts(result)
+      @number_try -= 1
+      if @number_try == 0
+        @output.puts "You lose! HA HA"
+      else
+        result = plus + minus
+        @output.puts(result)
+        @output.puts("You win") if result == '++++'
+      end
     end
 
-
+    def hint
+      return "You haven't hint" if @hint == 0
+      @hint -= 1
+      @secret_code.sample
+    end
 
     private
 
